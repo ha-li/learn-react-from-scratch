@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Samples</title>
+  </head>
+
+  <body>
+    <div id='root'></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      // pure react and javascript code
+      const data = [
+        {
+          name: "BakedSalmon",
+          ingredients: [
+            {name: 'Salmon', amount: 1, measurement: 'lb'},
+            {name: 'Peanut Buter', amount: 2, measurement: 'cups'},
+            {name: 'onion', amount: 1, measurement: 'cup'},
+            {name: 'papaya', amount: 2, measurement: 'cups'}
+          ],
+          steps: [
+            "preheat oven",
+            "chop onions",
+            "spread peanut butter"
+          ]
+        }
+      ];
+
+      function Recipe({ name, ingredients, steps }) {
+        return (
+          <section className="recipe">
+            <h1>{name}</h1>
+            <ul className="ingredients">
+              {ingredients.map( (ingredient, i) => (
+                 <li key={i}>{ingredient.name}</li>
+               )
+              )
+              }
+            </ul>
+            <section className="instructions">
+                <h2>Cooking Instructions</h2>
+                {steps.map( (step, i) => (
+                  <p key={i}>{step}</p>
+                ))}
+            </section>
+          </section>
+        );
+      }
+
+      function Menu({ title, recipes }) {
+        return (
+          <article>
+             <header><h1>{title}</h1></header>
+             <div className="recipes">
+                {recipes.map( (recipe, i) => (
+                  <Recipe key={i} 
+                    name={recipe.name} 
+                    ingredients={recipe.ingredients} 
+                    steps={recipe.steps} 
+                  />
+                ))}
+             </div>
+          </article>
+        );
+      }
+
+      ReactDOM.render(
+        <Menu title="Delicious" recipes={data} />, 
+        document.getElementById('root'));
+    </script>
+  </body>
+</html>
